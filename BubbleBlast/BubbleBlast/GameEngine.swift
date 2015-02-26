@@ -24,12 +24,14 @@ class GameEngine {
     private let accelaration = CGFloat(0.5)
     
     private let physicsEngine: PhysicsEngine
+    private let gameLogic: GameLogic
+    
     private var bullet: BubbleModel?
     private var nextBullet: BubbleModel?
     
     private var bubbles = Dictionary<Int, BubbleModel>()
-    private var grid = Array<CGPoint>()
     private var bubblesInGrid = Array<BubbleModel?>(count: Constants.numberOfCollectionCells, repeatedValue: nil)
+    private var grid = Array<CGPoint>()
     private var graph = Array<Array<Int>> ()
     
     private var key: Int = 0
@@ -37,33 +39,19 @@ class GameEngine {
     private var isGameOver = false
 
     init(worldWidth: CGFloat, worldHeight:CGFloat, bubbleSize: CGFloat, bubbles: Array<BubbleModel>) {
-        self.bubbleSize = bubbleSize
-        self.radius = bubbleSize / 2
         self.worldWidth = worldWidth
         self.worldHeight = worldHeight
+        self.bubbleSize = bubbleSize
+        self.radius = bubbleSize / 2
         self.barrier = worldHeight * 4 / 5
+        
         self.physicsEngine = PhysicsEngine(worldWidth: worldWidth, worldHeight: worldHeight,
             bubbleSize: bubbleSize, barrier: self.barrier)
-
-        setupBubbles(bubbles)
+        self.gameLogic = GameLogic()
+        
         setupGrid()
         setupGraph()
-    }
-    
-    // set up bubbles for an empty game.
-    private func setupBubbles(bubbles: Array<BubbleModel>) {
-        self.bullet = BubbleModel(coordinate: CGPoint(x: worldWidth/2, y: worldHeight-bubbleSize/2),
-            type: randomColor())
-        self.bullet!.tag = ++key
-        self.bubbles[key] = self.bullet
-        
-        self.nextBullet = BubbleModel(coordinate: CGPoint(x: bubbleSize/2, y: worldHeight-bubbleSize/2),
-            type: randomColor())
-        self.nextBullet!.tag = ++key
-        self.bubbles[key] = self.nextBullet
-        
-        physicsEngine.addBubble(bullet!)
-        physicsEngine.addBubble(nextBullet!)
+        setupBubbles(bubbles)
     }
     
     // calculate the coordinates of each cell in the grid.
@@ -90,6 +78,40 @@ class GameEngine {
                 }
             }
         }
+    }
+    
+    // set up bubbles for an empty game.
+    private func setupBubbles(bubbles: Array<BubbleModel>) {
+        for item in bubbles {
+            item.tag = ++key
+            self.bubbles[key] = item
+            physicsEngine.addBubble(item)
+            reposition(item)
+        }
+
+        self.bullet = BubbleModel(coordinate: CGPoint(x: worldWidth/2, y: worldHeight-bubbleSize/2),
+            type: randomColor())
+        self.bullet!.tag = ++key
+        self.bubbles[key] = self.bullet
+        physicsEngine.addBubble(bullet!)
+        
+        self.nextBullet = BubbleModel(coordinate: CGPoint(x: bubbleSize/2, y: worldHeight-bubbleSize/2),
+            type: randomColor())
+        self.nextBullet!.tag = ++key
+        self.bubbles[key] = self.nextBullet
+        physicsEngine.addBubble(nextBullet!)
+    }
+    
+    func reformatGame() {
+        var removedTags = Array<Int>()
+        for (index, item) in bubbles {
+            let tags = checkRemoving(item)
+            for tag in tags {
+                removedTags.append(tag)
+            }
+        }
+        remove(removedTags)
+        notifyUpdatingToController()
     }
     
     // Random a color.
@@ -124,8 +146,8 @@ class GameEngine {
                 // if the bubble get over the barrier, game over
                 isGameOver = true
             } else {
-                // check if there is a group of same bubbles that is connected
-                checkRemoving(bubble)
+                // check if there is a group of same bubbles that is connected and remove it
+                remove(checkRemoving(bubble))
             }
         }
         let result = physicsEngine.update()
@@ -135,7 +157,6 @@ class GameEngine {
         
         // update done. Notify the controller.
         if result.isEmpty {
-            isFiring = false
             notifyStopUpdatingToController()
             removeFalledBubbles()
         }
@@ -156,13 +177,13 @@ class GameEngine {
     
     // This function is to check if there is a group of > 3 bubbles that are connected and have the same color
     // and remove it.
-    private func checkRemoving(bubble: BubbleModel) {
+    private func checkRemoving(bubble: BubbleModel) -> Array<Int> {
         var queue = Queue<Int>()
         var isVisited = Dictionary<Int, Bool>()
-        var removedBubble = Array<Int>()
+        var visitedBubbles = Array<Int>()
         
         for var i = 0; i < Constants.numberOfCollectionCells; i++ {
-            if bubble.coordinate == grid[i] {
+            if bubble.coordinate == grid[i] && bubblesInGrid[i] != nil {
                 queue.enqueue(i)
                 isVisited[i] = true
             }
@@ -171,7 +192,7 @@ class GameEngine {
         // BFS using queue
         while queue.isEmpty == false {
             let u = queue.dequeue()!
-            removedBubble.append(u)
+            visitedBubbles.append(u)
             
             for v in graph[u] {
                 if isVisited[v] == nil && bubblesInGrid[v] != nil && bubblesInGrid[u]!.type == bubblesInGrid[v]!.type {
@@ -181,20 +202,27 @@ class GameEngine {
             }
         }
         
-        if removedBubble.count >= 3 {
+        var removedTags = Array<Int>()
+        if visitedBubbles.count >= 3 {
             // if there is a such group, delete bubbles and notify controller
-            var removedTags = Array<Int>()
-            for var i = 0; i < removedBubble.count; i++ {
-                let index = removedBubble[i]
+            for var i = 0; i < visitedBubbles.count; i++ {
+                let index = visitedBubbles[i]
                 let bubble = bubblesInGrid[index]!
-                bubblesInGrid[index] = nil
                 removedTags.append(bubble.tag!)
-                bubbles[bubble.tag!] = nil
+                bubblesInGrid[index] = nil
             }
-            physicsEngine.deleteBubble(removedTags)
-            NSNotificationCenter.defaultCenter().postNotificationName(Constants.removeBubbleMessage, object: removedTags)
-            checkFalling()
         }
+        return removedTags
+    }
+    
+    private func remove(removedTags: Array<Int>) {
+        for tag in removedTags {
+            bubbles[tag] = nil
+        }
+        physicsEngine.deleteBubble(removedTags)
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.removeBubbleMessage, object: removedTags)
+        
+        checkFalling()
     }
     
     // This function is to check if there are some bubbles that are unattached.
@@ -254,10 +282,9 @@ class GameEngine {
     
     // fire a bubble, add the new bubble for the next firing
     func fire(destination: CGPoint) -> Array<BubbleModel> {
-        if isGameOver || destination.y > barrier || isFiring {
+        if canFire(destination) == false {
             return Array<BubbleModel>()
         }
-        isFiring = true
         
         // set attributes to fire the bubble (bullet)
         bullet!.direction = CGVector(dx: destination.x-bullet!.coordinate.x,
@@ -298,11 +325,13 @@ class GameEngine {
     
     // notification setup
     private func notifyUpdatingToController() {
+        isFiring = true
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.updateBubbleMesseage, object: nil)
     }
     
     // notification setup
     private func notifyStopUpdatingToController() {
+        isFiring = false
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.stopUpdateBubbleMessage, object: nil)
     }
 

@@ -42,6 +42,7 @@
 		3A37F30D1A9CD79C002B34CB /* LevelDesignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F30C1A9CD79C002B34CB /* LevelDesignerViewController.swift */; };
 		3A37F30F1A9CD7ED002B34CB /* LevelSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F30E1A9CD7ED002B34CB /* LevelSelectionViewController.swift */; };
 		3A37F3231A9CDBCC002B34CB /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F31B1A9CDBCC002B34CB /* Palette.swift */; };
+		3AF598D21A9EED0D007F5944 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF598D11A9EED0D007F5944 /* GameLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		3A37F30C1A9CD79C002B34CB /* LevelDesignerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerViewController.swift; sourceTree = "<group>"; };
 		3A37F30E1A9CD7ED002B34CB /* LevelSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectionViewController.swift; sourceTree = "<group>"; };
 		3A37F31B1A9CDBCC002B34CB /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = "../../../cs3217-problem-set-3/LevelDesigner/LevelDesigner/Palette.swift"; sourceTree = "<group>"; };
+		3AF598D11A9EED0D007F5944 /* GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				3A2C9DEC1A9D7DD900260609 /* GameEngine.swift */,
+				3AF598D11A9EED0D007F5944 /* GameLogic.swift */,
 				3A2C9DED1A9D7DD900260609 /* PhysicsEngine.swift */,
 				3A2C9DEE1A9D7DD900260609 /* Queue.swift */,
 				3A37F30E1A9CD7ED002B34CB /* LevelSelectionViewController.swift */,
@@ -363,6 +366,7 @@
 				3A2C9DEA1A9D05B000260609 /* GameModel.swift in Sources */,
 				3A02DF211A9C6C3800BA2366 /* AppDelegate.swift in Sources */,
 				3A2C9DE81A9D05B000260609 /* CircleView.swift in Sources */,
+				3AF598D21A9EED0D007F5944 /* GameLogic.swift in Sources */,
 				3A2C9DEB1A9D05B000260609 /* GridCollectionViewCell.swift in Sources */,
 				3A2C9DEF1A9D7DD900260609 /* GameEngine.swift in Sources */,
 				3A2C9DF11A9D7DD900260609 /* Queue.swift in Sources */,

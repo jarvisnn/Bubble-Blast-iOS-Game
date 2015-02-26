@@ -194,7 +194,7 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
                     bubbles.append(bubble!)
                 }
             }
-            gameplay.newGame(bubbles)
+            gameplay.setData(bubbles)
         }
     }
 

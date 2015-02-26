@@ -21,6 +21,11 @@ class LevelSelectionViewController: UIViewController {
     private var cannon = UIImageView()
     private var base = UIImageView()
     private var isRotating = false
+    private var dataForGame = Array<Bubble>()
+    
+    func setData(data: Array<Bubble>) {
+        self.dataForGame = data
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +34,9 @@ class LevelSelectionViewController: UIViewController {
         setupBackground()
         setupCannon()
         setupBase()
-        setupGame(Array<Bubble>())
         setupNotification()
         setupHandler()
+        setupGame(dataForGame)
     }
     
     // set up the background.
@@ -67,8 +72,6 @@ class LevelSelectionViewController: UIViewController {
             (rotationPoint.y-cannon.frame.origin.y)/cannon.frame.height)
         cannon.layer.anchorPoint = anchorPoint;
         cannon.layer.position = rotationPoint;
-        
-      
     }
     
     private func setupBase() {
@@ -83,14 +86,18 @@ class LevelSelectionViewController: UIViewController {
         self.gameArea.addSubview(base)
     }
     
-    private func setupGame(data: Array<Bubble>) {
+    func setupGame(data: Array<Bubble>) {
         var models = Array<BubbleModel>()
         for item in data {
             models.append(item.getModel())
         }
         gameEngine = GameEngine(worldWidth: gameArea.frame.width, worldHeight: gameArea.frame.height,
             bubbleSize: Constants.bubbleSize, bubbles: models)
-        
+        setupBubbles()
+        gameEngine!.reformatGame()
+    }
+    
+    private func setupBubbles() {
         var list = gameEngine!.getCurrentBubble()
         bubbles = Dictionary<Int, Bubble>()
         for bubbleData in list {
@@ -112,7 +119,7 @@ class LevelSelectionViewController: UIViewController {
         
         for tag in tags {
             var subview = bubbles[tag]!.getView()
-            UIView.animateWithDuration(0.75, delay: 0, options:UIViewAnimationOptions.CurveEaseOut, animations: {() in
+            UIView.animateWithDuration(1, delay: 0, options:UIViewAnimationOptions.CurveEaseOut, animations: {() in
                 subview.alpha = 0.0
             }, completion: nil)
             
