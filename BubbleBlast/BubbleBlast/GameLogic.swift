@@ -174,7 +174,7 @@ class GameLogic {
     
     private func activateLightning(u: Int) -> Array<Int> {
         var tags = Array<Int>()
-        let row = bubblesInGrid[u]!.coordinate.y
+        let row = grid[u].y
         
         for var i = 0; i < Constants.numberOfCollectionCells; i++ {
             if bubblesInGrid[i] != nil && bubblesInGrid[i]!.coordinate.y == row && i != u
