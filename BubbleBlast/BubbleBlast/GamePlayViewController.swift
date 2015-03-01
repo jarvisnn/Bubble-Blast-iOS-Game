@@ -282,12 +282,12 @@ class GamePlayViewController: UIViewController {
     // tap handler
     func tapHandler(sender: UITapGestureRecognizer) {
         let destination = sender.locationInView(sender.view)
-        lastTouchedPoint = destination
         let vt = CGVector(dx: destination.x - rotationPoint.x, dy: destination.y - rotationPoint.y)
         let angle = calculateAngle(vt)
         
         if gameEngine!.canFire(destination) && isRotating == false {
             isRotating = true
+            lastTouchedPoint = destination
             let laserPath = gameEngine!.getLaserPath(rotationPoint, vt: vt)
             removeLasers()
             UIView.animateWithDuration(0.3,
