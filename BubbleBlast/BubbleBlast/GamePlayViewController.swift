@@ -388,6 +388,11 @@ class GamePlayViewController: UIViewController {
             let bulletView = bubbles[bullet.tag!]?.getView()
             self.gameArea.sendSubviewToBack(bulletView!)
             self.gameArea.sendSubviewToBack(laserBullet)
+            for view in lasers {
+                if view != nil {
+                    self.gameArea.sendSubviewToBack(view!)
+                }
+            }
             self.gameArea.sendSubviewToBack(barrier)
             self.gameArea.sendSubviewToBack(background)
         }
