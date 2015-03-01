@@ -9,7 +9,7 @@
 import UIKit
 
 /*
-    GameEngine. Currently this class contains all the game logic.
+    GameEngine.
 */
 class GameEngine {
     // Some constants.
@@ -67,6 +67,7 @@ class GameEngine {
         notifyUpdatingToController()
     }
     
+    // making the new bullet
     private func createNewBullet(x: CGFloat, y: CGFloat) -> BubbleModel {
         var bullet = BubbleModel(coordinate: CGPoint(x: x, y: y), type: randomColor())
         bullet.tag = ++key
@@ -127,6 +128,7 @@ class GameEngine {
         return result
     }
 
+    // check if can fire to destination
     func canFire(destination: CGPoint) -> Bool {
         return (isGameOver || destination.y > barrier + Constants.radius || isFiring) == false
     }
@@ -175,6 +177,7 @@ class GameEngine {
         return bullet?
     }
     
+    // get the Path for the lasers.
     func getLaserPath(u: CGPoint, vt: CGVector) -> Array<CGPoint> {
         
         let v = CGPoint(x: u.x+vt.dx, y: u.y+vt.dy)
@@ -183,6 +186,7 @@ class GameEngine {
         var wallHitPoint = calculateWallHittingLocation(u, vt: vt)
         var bubbleHitPoint = calculateBubbleHittingLocation(u, vt: vt, bubble: nil)
         
+        // find the bubble that collides with the laser
         for (var i = Constants.numberOfCollectionCells - 1; i >= 0; i--) {
             if (bubblesInGrid[i] != nil && distanceFromPoint(grid[i], toLineSegment: u, and: v) <= Constants.bubbleSize) {
                 let point = calculateBubbleHittingLocation(u, vt:vt, bubble: bubblesInGrid[i]!)
@@ -195,9 +199,10 @@ class GameEngine {
         var result = Array<CGPoint>()
         
         if wallHitPoint == nil || bubbleHitPoint.y >= wallHitPoint!.y {
+            // laser hitted bubble or top wall.
             let point = bubbleHitPoint
             result = [u, point]
-            for var i = grid.count - 1; i >= 0 ; i-- {
+            for var i = 0; i < grid.count ; i++ {
                 if (bubblesInGrid[i] == nil
                         && grid[i].x-radius <= point.x && point.x <= grid[i].x+radius
                         && grid[i].y-radius <= point.y && point.y <= grid[i].y+radius) {
@@ -206,6 +211,7 @@ class GameEngine {
                 }
             }
         } else {
+            // laser hitted side walls
             let list = getLaserPath(wallHitPoint!, vt: CGVector(dx: -vt.dx, dy: vt.dy))
             result = [u]
             for point in list {
@@ -216,6 +222,7 @@ class GameEngine {
         return result
     }
     
+    // calculate the exact collision point with bubble / top wall
     private func calculateWallHittingLocation(u: CGPoint, vt: CGVector) -> CGPoint? {
         if vt.dx == 0 {
             return nil
@@ -231,7 +238,8 @@ class GameEngine {
             return result.y > radius ? result : nil
         }
     }
-    
+
+    // calculate the exact collision point with side walls
     private func calculateBubbleHittingLocation(u: CGPoint, vt: CGVector, bubble: BubbleModel?) -> CGPoint {
         if bubble == nil {
             var leng: CGFloat

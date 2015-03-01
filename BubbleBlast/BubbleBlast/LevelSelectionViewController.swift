@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+    This class is to display game prepared as well as game designed in Design mode.
+*/
 class LevelSelectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private let gameModel = GameModel()
@@ -30,6 +33,7 @@ class LevelSelectionViewController: UIViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    // setup TableView
     private func setupSelectionArea() {
         listOfGames = gameModel.getGameList() as? Array<String>
         
@@ -84,10 +88,12 @@ class LevelSelectionViewController: UIViewController, UITableViewDataSource, UIT
         activateSegue()
     }
     
+    // move to GamePlay screen
     private func activateSegue() {
         performSegueWithIdentifier("selectionDone", sender: nil)
     }
     
+    // prepare for the game
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "selectionDone") {
             var gameplay = segue.destinationViewController as GamePlayViewController;
@@ -95,18 +101,21 @@ class LevelSelectionViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
     
+    // create level "easy"
     @IBAction func easyGameClicked(sender: UIButton) {
         bubbles = randomGame.create(58, indestructible: 0, star: 3, lightning: 3, bomb: 3)
         activateSegue()
         self.selectionArea!.hidden = true
     }
-    
+
+    // create level "medium"
     @IBAction func mediumGameClicked(sender: UIButton) {
         bubbles = randomGame.create(69, indestructible: 5, star: 2, lightning: 2, bomb: 2)
         activateSegue()
         self.selectionArea!.hidden = true
     }
-    
+
+    // create level "hard"
     @IBAction func hardGameClicked(sender: UIButton) {
         bubbles = randomGame.create(92, indestructible: 15, star: 2, lightning: 2, bomb: 2)
         activateSegue()
@@ -117,6 +126,7 @@ class LevelSelectionViewController: UIViewController, UITableViewDataSource, UIT
         selectionArea!.hidden = !selectionArea!.hidden
     }
     
+    // go back menu
     @IBAction func backButtonPressed(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
     }

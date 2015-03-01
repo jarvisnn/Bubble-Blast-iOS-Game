@@ -59,6 +59,7 @@
 		3A99E5E81AA0CD58006178A9 /* LevelSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A99E5E71AA0CD58006178A9 /* LevelSelectionViewController.swift */; };
 		3AAC09911AA27374003479AF /* RandomGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC09901AA27374003479AF /* RandomGame.swift */; };
 		3AB1B5C71AA293CC0006C12A /* barrier.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB1B5C61AA293CC0006C12A /* barrier.png */; };
+		3AD7A3B71AA3422D006898B1 /* laser-end.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD7A3B61AA3422D006898B1 /* laser-end.png */; };
 		3AF598D21A9EED0D007F5944 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF598D11A9EED0D007F5944 /* GameLogic.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		3A99E5E71AA0CD58006178A9 /* LevelSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectionViewController.swift; sourceTree = "<group>"; };
 		3AAC09901AA27374003479AF /* RandomGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomGame.swift; sourceTree = "<group>"; };
 		3AB1B5C61AA293CC0006C12A /* barrier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = barrier.png; path = ../../Images/barrier.png; sourceTree = "<group>"; };
+		3AD7A3B61AA3422D006898B1 /* laser-end.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "laser-end.png"; path = "../../Images/laser-end.png"; sourceTree = "<group>"; };
 		3AF598D11A9EED0D007F5944 /* GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +218,7 @@
 		3A02DF5E1A9C740500BA2366 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AD7A3B61AA3422D006898B1 /* laser-end.png */,
 				3A61CA001AA2B7A2003B652D /* laser.png */,
 				3AB1B5C61AA293CC0006C12A /* barrier.png */,
 				3A77FC191AA250C300A01192 /* button-designed.png */,
@@ -408,6 +411,7 @@
 				3A61C9FB1AA2A01B003B652D /* bubble-hitting.wav in Resources */,
 				3A02DF5D1A9C73FF00BA2366 /* eraser-2.png in Resources */,
 				3A4DBADB1AA05DC000E2B1E5 /* button-start.png in Resources */,
+				3AD7A3B71AA3422D006898B1 /* laser-end.png in Resources */,
 				3A4DBADF1AA064BA00E2B1E5 /* button-back.png in Resources */,
 				3A61CA011AA2B7A2003B652D /* laser.png in Resources */,
 				3A02DF561A9C73FF00BA2366 /* bubble-orange.png in Resources */,

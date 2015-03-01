@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+    This function is to create a game randomly and make sure some necessary conditions.
+*/
 class RandomGame {
     private var grid = Array<CGPoint>()
     private var graph = Array<Array<Int>> ()
@@ -19,6 +22,7 @@ class RandomGame {
         setupGraph()
     }
     
+    // create a game, return a list of bubble.
     func create(quantity: Int, indestructible: Int, star: Int, lightning: Int, bomb: Int) -> Array<Bubble> {
         var result = Array<Bubble>()
         
@@ -123,6 +127,7 @@ class RandomGame {
         }
     }
     
+    // help functions
     private func distance(point1: CGPoint, point2: CGPoint) -> CGFloat{
         return length(CGVector(dx: point1.x-point2.x, dy: point1.y-point2.y))
     }

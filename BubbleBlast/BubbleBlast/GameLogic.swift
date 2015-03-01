@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+    This class defines all game logics.
+*/
 class GameLogic {
     private let worldWidth: CGFloat
     private let worldHeight: CGFloat
@@ -57,7 +60,7 @@ class GameLogic {
     
     // Reposition a bubble, snap it to the grid's cells
     func reposition(bubble: BubbleModel) {
-        for var i = grid.count - 1; i >= 0 ; i-- {
+        for var i = 0; i < grid.count ; i++ {
             if (grid[i].x-radius <= bubble.coordinate.x && bubble.coordinate.x <= grid[i].x+radius
                 && grid[i].y-radius <= bubble.coordinate.y && bubble.coordinate.y <= grid[i].y+radius) {
                     bubble.coordinate = grid[i]
@@ -67,15 +70,18 @@ class GameLogic {
         }
     }
     
+    // add a new bubble and check it
     func addBubble(bubble: BubbleModel, isBullet: Bool) -> Array<Int>{
         reposition(bubble)
         return isBullet ? checkRemoving(bubble) : Array<Int>()
     }
     
+    // return bubbles in grid
     func getBubbles() -> Array<BubbleModel?> {
         return bubblesInGrid
     }
     
+    // return the whole grid
     func getGrid() -> Array<CGPoint> {
         return grid
     }
@@ -127,6 +133,7 @@ class GameLogic {
         return removedTags
     }
     
+    // check special bubbles and activate it.
     private func checkSpecialBubble(u: Int, bullet: BubbleModel) -> Array<Int> {
         var tags = Array<Int>()
         var actionQueue = Queue<(String, Int)>()
@@ -202,6 +209,7 @@ class GameLogic {
         return tags
     }
     
+    // reformat a game, at the beginning.
     func reformat() -> Array<Int> {
         var queue = Queue<Int>()
         var isVisited = Dictionary<Int, Bool>()

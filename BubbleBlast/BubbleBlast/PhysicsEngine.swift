@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+    This class simulates a real bubble world
+*/
 class PhysicsEngine {
     private let worldWidth: CGFloat
     private let worldHeight: CGFloat
@@ -41,6 +44,7 @@ class PhysicsEngine {
         }  
     }
     
+    // remove bubbles that are outside the world
     func removeFalledBubbles() -> Array<Int> {
         var tags = Array<Int>()
         for (key, item) in bubbles {
@@ -102,6 +106,9 @@ class PhysicsEngine {
         }
         for (key, item) in bubbles{
             if item.tag != bubble.tag && areCollided(bubble, bubble2: item) {
+                // calculate the exact collision point.
+                let newStartPoint = CGPoint(x: bubble.coordinate.x - bubble.direction.dx * 100, y: bubble.coordinate.y - bubble.direction.dy * 100)
+                bubble.coordinate = calculateBubbleHittingLocation(newStartPoint, vt: bubble.direction, bubble: item)
                 return true
             }
         }
@@ -152,6 +159,45 @@ class PhysicsEngine {
     
     func getHittingBubble() -> BubbleModel? {
         return hittingBubble
+    }
+    
+    // return the collision point.
+    private func calculateBubbleHittingLocation(u: CGPoint, vt: CGVector, bubble: BubbleModel?) -> CGPoint {
+        if bubble == nil {
+            var leng: CGFloat
+            if vt.dx == 0 {
+                leng = u.y - radius
+            } else {
+                let angle = atan2(abs(vt.dx), -vt.dy)
+                leng = (u.y - radius) / cos(angle)
+            }
+            return endPoint(u, vt: vt, leng: leng)
+        }
+        let v = CGPoint(x: u.x+vt.dx, y: u.y+vt.dy)
+        let lengToLine = distanceFromPoint(bubble!.coordinate, toLineSegment: u, and: v)
+        let dis = distance(u, point2: bubble!.coordinate)
+        let totalLeng = sqrt(dis * dis - lengToLine * lengToLine)
+        let leng1 = sqrt(bubbleSize * bubbleSize - lengToLine * lengToLine)
+        let leng = totalLeng - leng1;
+        return endPoint(u, vt: vt, leng: leng)
+    }
+    
+    private func endPoint(u: CGPoint, vt: CGVector, leng: CGFloat) -> CGPoint{
+        let vecLeng = length(vt)
+        return CGPoint(x: u.x+vt.dx/vecLeng*leng, y: u.y+vt.dy/vecLeng*leng)
+    }
+    
+    // help function, calculate distance from point p to line vw
+    private func distanceFromPoint(p: CGPoint, toLineSegment v: CGPoint, and w: CGPoint) -> CGFloat {
+        let a = v.y-w.y
+        let b = w.x-v.x
+        let c = (v.x-w.x)*v.y + (w.y-v.y)*v.x
+        return abs(a*p.x + b*p.y + c) / sqrt(a*a + b*b)
+    }
+    
+    // help function
+    private func distance(point1: CGPoint, point2: CGPoint) -> CGFloat{
+        return length(CGVector(dx: point1.x-point2.x, dy: point1.y-point2.y))
     }
     
     // help function

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+    This class is to design a custom game. There is no restriction for creating game in this mode.
+*/
 class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     @IBOutlet var gameArea: UIView!
@@ -185,6 +188,7 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
+    // prepare for the GamePlay
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "start game") {
             var gameplay = segue.destinationViewController as GamePlayViewController;
@@ -340,6 +344,7 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    // Check if a file Name is valid.
     private func check(name: String?) -> Bool {
         if (name == nil || name == "" || countElements(name!) > 9) {
             return false

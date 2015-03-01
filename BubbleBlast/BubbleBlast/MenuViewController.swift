@@ -11,7 +11,8 @@ import AVFoundation
 
 class MenuViewController: UIViewController {
     
-    var soundtrack = AVAudioPlayer()
+    private var soundtrack = AVAudioPlayer()
+    
     private func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
         var path = NSBundle.mainBundle().pathForResource(file, ofType:type)
         var url = NSURL.fileURLWithPath(path!)
@@ -24,6 +25,8 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // setup soundtrack, hide the navigationBar
         navigationController?.navigationBarHidden = true
         soundtrack = setupAudioPlayerWithFile("soundtrack", type: "wav")
         soundtrack.volume = 0.5;

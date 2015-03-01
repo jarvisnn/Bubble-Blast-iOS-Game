@@ -9,6 +9,9 @@
 import UIKit
 import AVFoundation
 
+/*
+    GamePlay screen.
+*/
 class GamePlayViewController: UIViewController {
     
     @IBOutlet var gameArea: UIView!
@@ -18,13 +21,14 @@ class GamePlayViewController: UIViewController {
     private var timer: NSTimer?
     
     private var isRotating = false
-    private var currentCannonAngle = CGFloat(0)
+    private var lastTouchedPoint = CGPoint(x: Constants.ipadWidth / 2, y: 0)
     
     private var cannonAnimations = Array<UIImage>()
     private var burstingAnimations = Array<UIImage>()
     private var background = UIImageView()
     private var cannon = UIImageView()
     private var base = UIImageView()
+    private var laserBullet = UIImageView()
     private var barrier = UIImageView()
     private var lasers = Array<UIImageView?>(count: Constants.maxLasers, repeatedValue: nil)
     
@@ -49,6 +53,7 @@ class GamePlayViewController: UIViewController {
         setupCannon()
         setupBase()
         setupBarrier()
+        setupLaser()
         setupOrder()
         extractBubbleBurstAnimation()
         setupNotification()
@@ -56,10 +61,12 @@ class GamePlayViewController: UIViewController {
         setupGame(dataForGame)
     }
     
+    // we need some animation at the beginning so we start the game in viewDidAppear.
     override func viewDidAppear(animated: Bool) {
         gameEngine!.reformat()
     }
     
+    // setup sound for sound animations.
     private func setupSounds() {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
@@ -84,10 +91,12 @@ class GamePlayViewController: UIViewController {
         self.gameArea.addSubview(background)
     }
     
+    // setup cannon
     private func setupCannon() {
         let gameViewHeight = gameArea.frame.size.height
         let gameViewWidth = gameArea.frame.size.width
         
+        // extract cannon shot in the big photo.
         let cannons = UIImage(named: Constants.cannonLink)!
         for var i = 0; i < Constants.numberOfCannonAnimations; i++ {
             let cropRect = CGRectMake(cannons.size.width / 6 * CGFloat(i % 6),
@@ -102,6 +111,7 @@ class GamePlayViewController: UIViewController {
         cannon.frame = CGRectMake(gameViewWidth / 2 - cannonWidth / 2, gameViewHeight - cannonHeight, cannonWidth, cannonHeight)
         self.gameArea.addSubview(cannon)
         
+        // setup anchorPoint for rotating.
         rotationPoint = CGPoint(x: gameArea.frame.width / 2, y: gameArea.frame.height - Constants.radius)
         let anchorPoint =  CGPointMake((rotationPoint.x-cannon.frame.origin.x)/cannon.frame.width,
             (rotationPoint.y-cannon.frame.origin.y)/cannon.frame.height)
@@ -109,6 +119,7 @@ class GamePlayViewController: UIViewController {
         cannon.layer.position = rotationPoint;
     }
     
+    // setup Base of the cannon
     private func setupBase() {
         let gameViewHeight = gameArea.frame.size.height
         let gameViewWidth = gameArea.frame.size.width
@@ -121,6 +132,7 @@ class GamePlayViewController: UIViewController {
         self.gameArea.addSubview(base)
     }
     
+    // setup the barrier that divide the screen.
     private func setupBarrier() {
         let barrierImage = UIImage(named: Constants.barrierLink)
         barrier = UIImageView(image: barrierImage)
@@ -128,11 +140,22 @@ class GamePlayViewController: UIViewController {
         self.gameArea.addSubview(barrier)
     }
     
+    // setup laser.
+    private func setupLaser() {
+        let laserBulletImage = UIImage(named: Constants.laserBullet)
+        laserBullet = UIImageView(image: laserBulletImage)
+        laserBullet.frame = CGRectMake(0, 0, Constants.bubbleSize / 2, Constants.bubbleSize / 2)
+        laserBullet.hidden = true
+        self.gameArea.addSubview(laserBullet)
+    }
+    
+    // setup necessary orders of the view
     private func setupOrder() {
         self.gameArea.bringSubviewToFront(cannon)
         self.gameArea.bringSubviewToFront(base)
     }
     
+    // extract shots for bursting animation.
     private func extractBubbleBurstAnimation() {
         let burstings = UIImage(named: Constants.bubbleBurstLink)!
         for var i = 0; i < 4; i++ {
@@ -143,6 +166,7 @@ class GamePlayViewController: UIViewController {
         }
     }
     
+    // setup game
     func setupGame(data: Array<Bubble>) {
         var models = Array<BubbleModel>()
         for item in data {
@@ -196,7 +220,7 @@ class GamePlayViewController: UIViewController {
             
             subview.image = UIImage(named: Constants.transparentImage)
             subview.animationImages = burstingAnimations
-            subview.animationDuration = 0.5
+            subview.animationDuration = 0.4
             subview.animationRepeatCount = 1
             subview.startAnimating()
 
@@ -227,6 +251,7 @@ class GamePlayViewController: UIViewController {
             timer!.invalidate()
             timer = nil
         }
+        self.updateLaser()
         for (index, bubble) in bubbles {
             if bubble.getModel().coordinate.y > Constants.barrier
                     && bubble.getModel().coordinate.y < Constants.ipadHeight - Constants.bubbleSize {
@@ -254,15 +279,16 @@ class GamePlayViewController: UIViewController {
         self.view.addGestureRecognizer(panGesture)
     }
     
+    // tap handler
     func tapHandler(sender: UITapGestureRecognizer) {
         let destination = sender.locationInView(sender.view)
+        lastTouchedPoint = destination
         let vt = CGVector(dx: destination.x - rotationPoint.x, dy: destination.y - rotationPoint.y)
         let angle = calculateAngle(vt)
         
         if gameEngine!.canFire(destination) && isRotating == false {
             isRotating = true
             let laserPath = gameEngine!.getLaserPath(rotationPoint, vt: vt)
-            println(laserPath)
             removeLasers()
             UIView.animateWithDuration(0.3,
                 delay: 0, options: .CurveLinear,
@@ -271,36 +297,37 @@ class GamePlayViewController: UIViewController {
                 }, completion: { finished in
                     self.fire(destination)
                     self.isRotating = false
-                    self.createLasers(laserPath, bullet: self.gameEngine!.getBullet()!)
+                    self.lastTouchedPoint = destination
+                    self.updateLaser()
                 }
             )
         }
     }
     
+    // drag handler
     func panHandler(sender: UIPanGestureRecognizer) {
         let touchedPoint = sender.locationInView(self.view)
-        let p = CGPoint(x: touchedPoint.x, y: min(touchedPoint.y, Constants.barrier))
+        let p = CGPoint(x: touchedPoint.x, y: min(touchedPoint.y, Constants.barrier+Constants.radius))
+        lastTouchedPoint = p
         let vt = CGVector(dx: p.x - rotationPoint.x, dy: p.y - rotationPoint.y)
         let angle = calculateAngle(vt)
         
         switch sender.state {
         case .Ended:
+            self.updateLaser()
+            self.cannon.transform = CGAffineTransformMakeRotation(angle)
             if gameEngine!.canFire(p) {
                 self.fire(p)
-                removeLasers()
-                let laserPath = gameEngine!.getLaserPath(rotationPoint, vt: vt)
-                self.createLasers(laserPath, bullet: self.gameEngine!.getBullet()!)
-                self.cannon.transform = CGAffineTransformMakeRotation(angle)
             }
         default:
-            removeLasers()
-            let laserPath = gameEngine!.getLaserPath(rotationPoint, vt: vt)
-            self.createLasers(laserPath, bullet: self.gameEngine!.getBullet()!)
+            self.updateLaser()
             self.cannon.transform = CGAffineTransformMakeRotation(angle)
         }
     }
     
+    // remove lasers
     private func removeLasers() {
+        laserBullet.hidden = true
         for var i = 0; i < Constants.maxLasers; i++ {
             if lasers[i] != nil {
                 lasers[i]?.removeFromSuperview()
@@ -308,7 +335,15 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    private func createLasers(points: Array<CGPoint>, bullet: BubbleModel) {
+    // update lasers
+    private func updateLaser() {
+        let vt = CGVector(dx: lastTouchedPoint.x-rotationPoint.x, dy: lastTouchedPoint.y-rotationPoint.y)
+        let points = gameEngine!.getLaserPath(rotationPoint, vt: vt)
+        createLasers(points)
+    }
+    
+    // create lasers and add to view.
+    private func createLasers(points: Array<CGPoint>) {
         removeLasers()
         
         for var i = 0; i < points.count - 2; i++ {
@@ -331,6 +366,10 @@ class GamePlayViewController: UIViewController {
             self.gameArea.sendSubviewToBack(lasers[i]!)
             self.gameArea.sendSubviewToBack(background)
         }
+        
+        laserBullet.frame = CGRectMake(points[points.count - 1].x - Constants.bubbleSize/2, points[points.count - 1].y - Constants.bubbleSize/2,
+            Constants.bubbleSize, Constants.bubbleSize)
+        laserBullet.hidden = false
     }
     
     // fire the bubble.
@@ -343,15 +382,18 @@ class GamePlayViewController: UIViewController {
         }
     }
     
+    // prepare the bullet to fire
     private func prepareBullet() {
         if let bullet = gameEngine?.getBullet() {
             let bulletView = bubbles[bullet.tag!]?.getView()
             self.gameArea.sendSubviewToBack(bulletView!)
+            self.gameArea.sendSubviewToBack(laserBullet)
             self.gameArea.sendSubviewToBack(barrier)
             self.gameArea.sendSubviewToBack(background)
         }
     }
     
+    // help functions
     private func calculateAngle(vt: CGVector) -> CGFloat{
         let v1 = CGVector(dx: 0, dy: -10)
         let v2 = vt

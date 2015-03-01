@@ -1,0 +1,386 @@
+########################
+# CS3217 Problem Set 5 #
+########################
+
+# Name: Nguyen Viet Dung
+# Matric No: A0112068N
+# Tutor: Cui Wei
+
+######################
+# Rules of Your Game #
+######################
+
+This is an infinite game. Try not to get “game over” and play as long as you can.
+
++ The screen will be divided into 2 parts by a red barrier
++ The upper part is for firing bubbles
++ The lower part is for bullets and cannon.
+
+Rules:
++ One you fire a bubble that gets out of the upper part + that bubble is not removed immediately -> you lose.
++ You can tap on the upper part to fire or drag to see the direction before firing.
++ There are some special bubbles. (already known)
++ User can design their own game.
++ There are 3 pre-packed levels: Easy, Medium, Hard that you can choose. Each time you click them, a random game will be generated:
+	- Easy mode: 58 bubbles, 0 indestructible, 3 stars, 3 lightning, 4 bombs.
+	- Medium mode: 69 bubbles, 5 indestructible, 2 stars, 2 lightning, 2 bombs.
+	- Hard mode: 92 bubbles, 15 indestructible, 2 stars, 2 lightning, 2 bombs.
+
+###############################
+# Problem 1: Cannon Direction #
+###############################
+
+There are two way to specify the cannon direction:
+1. Tap on the screen. Basically when user tap on the screen, I fire the bubble directly through that point.
+2. Drag on the screen. The cannon direction will follow the touched point. And when you release your finger, I fire the bubble directly with the current cannon direction.
+
+Technically, when user tap on the screen, I have a TapGestureRecognizer to get the tap’s coordinates and tell GameEngine fire to that point. GameEngine takes that information and calculate a direction vector as well as set the velocity, etc. After that, GameEngine asks PhysicsEngine to simulate the movement and notifies Controller that there is something to update as well as create a new random bubble for the next firing.
+
+Similarly, I also have a PanGestureRecognizer. When dragging, I rotate the cannon. When releasing, I get the last touched point and tell GameEngine, exactly as above.
+
+###############################
+# Problem 2: Upcoming Bubbles #
+###############################
+
+My game has only one upcoming bubble.
+Basically I just create a random normal bubble each time with rand() because this is an infinite game. User keep playing as long as they can.
+
+After each firing, I changed the direction and velocity of the prepared bubble, move it to the cannon. Concurrently I create a new bubble and move it from outside the gameArea to the bottom left corner. So now I have new bullet and new prepared bullet.
+
+##########################
+# Problem 3: Integration #
+##########################
+
+My GameEngine is independent. It takes a list of bubbles and make an independent world of bubbles (GamePhysics) with the clear logic (GameLogic).
+
+More than that, GameEngine and LevelDesigner use the same approach to store the bubbles, i.e store coordinates and types. Therefore it is very easy to pass bubbles from LeverDesigner to GameEngine. After “START”, LevelDesigner passes a list of bubbles to GameEngine (prepareForSegue). Then GameEngine does more setups, i.e setup PhysicsEngine, create bullets, cannon etc and GameArea is shown.
+
+However, to fulfill PhysicsEngine, the Bubble need to include velocity, acceleration, direction, etc. So the LevelDesigner has to make add some attributes to the bubble object.
+
+###############
+# Problem 4.3 #
+###############
+
+All special behaviors are done in GameLogic. For each special bubble, I create a function to solve it. Then when getting a special bubble, I just call the corresponding function.
+This strategy has some advantages:
+
+1. Clear. All are implemented in GameLogic. So it is easier to control.
+2. Independent. Each special behavior is independent. So when I need to modify a behavior, I just have to modify a function.
+3. Free to extend. When adding a new behavior, I just need to add a new function.
+
+############################
+# Problem 6: Class Diagram #
+############################
+
+Please save your diagram as `class-diagram.png` in the root directory of the repository.
+
+######################
+# Problem 7: Testing #
+######################
+
+I/ Black-box testing
+
+1/ Test screens
+	- Test the transitions between screen. Try to go back and check if it is the right screen.	
+
+2/ Test LevelDesigner
+a. Test implementation of the palette:
+    + Select each of the image in the palette. Check if the selected one is highlighted.
+
+b. Test implementation of game:
+    + Before selecting any image in the palette.
+	- Drag over cells -> nothing happens
+        - Tap on a cell
+            * Tap on an empty cell -> nothing happens.
+            * Tap on a filled cell -> the cell cycles through the colors.
+        - Long press on a cell
+            * Long press on an empty cell -> nothing happens.
+            * Long press on a filled cell -> the cell is removed
+
+    + Select each of the image in the palette and try the following:
+        - Drag to fill the cells
+            * Drag over a empty cell -> the cell change to the current color
+            * Drag over a filled cell -> the cell change to the current color
+        - Tap on the cells
+            * Tap on an empty cell -> the cell change to the current color
+            * Tap on a filled cell several times -> the cell cycles through the colors. 
+        - Long press on the cells
+            * Long press on an empty cell -> nothing happens.
+            * Long press on a filled cell -> the cell is removed.
+
+    + Select the eraser in the palette and try testing:
+        - Drag over cells
+            * Drag over an empty cell -> nothing happens.
+            * Drag over a filled cell -> the cell is removed
+        - Tap on the cells
+            * Tap on an empty cell -> nothing happens
+            * Tap on a filled cell -> the cell cycles through the colors.
+        - Long press on the cells
+            * Long press on an empty cell -> nothing happens.
+            * Long press on a filled cell -> the cell is removed.
+
+c. Test implementation of file operations. 
+    + Save
+	- Test strange names, i.e special characters. This should not be allowed.
+        - Save an empty game.
+        - Save a full game (the grid is full of bubbles).
+        - Save a random game.
+        - Try to save a game with empty name.
+        - Try to save two games with the same name.
+	- Open a game, modify it and re-save.
+
+    + Load
+        - Tap load when there is no game.
+        - Save and load an empty game.
+        - Save and load a full game (the grid is full of bubbles).
+        - Save and load a random game.
+        - Re-save a game and load it.
+        - Modify a game but not re-save it, try loading it again.
+	- Delete a saved game.
+
+d. Other requirements
+    + Reset:
+        - Reset an empty game
+	— Reset a full game
+        - Try to reset some random games.
+    + Implementation of cells.
+        - Choose some random bubble in the palette and drag & tap over all the cells.
+          Check if every cells are colored.	
+3/ Test LevelSelection
+    + Tap Select Game button and check the table view.
+
+4/ Test GamePlay
++ Test game area (as specified above)
+	- Tap on the bottom part of the screen below the barrier, nothing should happen.
+	- Tap on the top part of the screen above the barrier or drag the screen for the next testings.
+	
++ Test movable bubbles:
+	- Fire to some points in the screen and check if the bubble is fired 
+	directly to that points at constant speed.
+
++ Test the wall reflection:
+	- Fire to the left edge of the screen and check if the bubble is reflected correctly.
+	- Fire to the right edge of the screen and check if the bubble is reflected correctly. 
+
++ Test collisions between two bubbles:
+	- Fire a bubble directly to another bubble and check if the fired bubble stops.
+	- Try to test different collision points to make sure the bubble stops in all cases.
+
++ Test collisions between the bubble and the top edge:
+	- Fire bubbles to hit the top wall and check if the bubbles stop.
+	- Fire bubbles to the top 2 corners and check if the bubbles stop.
+
++ Test bubble snapping to grid cells:
+	- Fire bubbles to all the grid cells in the game area to check if all cells work correctly.
+	- Fire bubbles to different positions of a cell to check if the bubble still snaps 		correctly.
+
++ Test removing connected bubbles of the same color:
+	- Test a group of size 2 with the same color, they should not be removed.
+	- Test a group of connected bubbles with size 3, 4, 5 (it can be proved that the size 		cannot >= 6), they should be removed.
+
++ Test removing unattached bubbles:
+	- Test 1 bubble that are unattached.
+	- Test a group of unattached bubbles that are connected. All should fall.
+	- Test a group of unattached bubbles that are not connected. All should fall.
+
++ Test cannon:
+	- Tap to fire, the cannon should rotate to that way.
+	- Drag on screen, the cannon should follow the touched point.
+	- Fire, check if the bubble follows the laser path.
+
++ Test laser:
+	- Tap to fire, the laser should move to that way.
+	- Drag on screen, the laser should follow the touched point.
+	- Drag all points in the screen, check if laser goes the right way.
+
++ Test game rules:
+	— Fire bubbles over the barrier, an alert should appear and user cannot fire.
+	- Fire a bubble over the barrier. But this time, a group of 3 same bubbles is found. Bubble removed, game continuing.
+	- Fire a bubble over the barrier. But this time, it touched a special bubble.
+
+	- Fire to a bomb. Test at various location, i.e corners, edges, etc.
+	- Fire to a star. Test at various location, i.e corners, edges, etc.
+	- Fire to a lightning. Test at various location, i.e corners, edges, etc.
+	- Fire to a indestructible. Nothing happens.
+	— Place special bubbles adjacent. Fire to some special bubble and check.
+
++ Other requirements:
+	- Try firing when a bubble is being fired/ is falling. Nothing should happen.
+	- Check if a new bubble is prepared for the next firing.	
+
+5/  Test Integration between components
+a/ LevelSelection and LevelDesigner
+	- Design and save all kinds (as above) of games. Open LevelSelection and check if the games are there (under select game button).
+
+b/ LevelSelection and GamePlay
+	- Design levels and open it in the LevelSelection. Check if the GameArea displays the right games.
+	- Try level “Easy”, “Medium”, “Hard” and check if the LevelSelection generates the right games, i.e: No connected area >= 3, no indestructible bubble at the top edge, etc.
+
+c/ LevelDesigner and GamePlay
+	- create an empty game and “START”. 
+	- create a full game and “START” -> game over.
+	- create some bubbles that get over the barrier + no connected area >= 3 -> game over.
+	- create some connected area >= 3 and “START”. They should be removed.
+	- create some bubbles that are not attached to the top edge. They should fall.
+	- try save game, load game then “START”.
+
+6/ Test Integration
+	Test all things above but usually change screen.
+
+II. White-Box Testing.
+
+1/ Test segues:
+	- Test segue from main -> LevelSelection and LevelDesigner.
+	- Test segue from LevelSelection and LevelDesigner -> GamePlay.
+	- Test going back.
+
+2/ Test LevelDesigner:
+
+a. paletteTapped
+    + Try tap all things in the palette
+
+b. cellLongPressed
+    + Select each of things/nothing in the palette
+        - An empty cell -> nothing happens
+        - A filled cell -> the cell is removed
+
+c. cellTapped
+    + Select nothing in the palette
+        - An empty cell -> nothing happens
+        - A filled cell -> cycles through the colors
+    + Select a bubble in the palette
+        - An empty cell -> change the color to that bubble
+        - A filled cell -> cycles through the colors
+    + Select the eraser in the palette
+        - An empty cell -> nothing happens
+        - A filled cell -> cycles through the colors
+
+d. cellDragging
+    + Select nothing in the palette, drag -> nothing happens
+    + Select a bubble in the palette
+        - An empty cell -> change the color to that bubble
+        - A filled cell -> change the color to that bubble
+    + Select the eraser in the palette
+        - An empty cell -> nothing happens
+        - A filled cell -> the cell is removed
+
+e. saveButtonPressed
+    + Name with special characters. This is not allowed.
+    + An empty game
+    + A full game (the grid is full of bubbles).
+    + Some random games
+    + Click ’save’ without typing a name
+    + Type a name that has been exsiting
+    + Modify a game and click ‘Resave’    
+
+f. loadButtonPressed()
+    + Tap the load button several times, a table view appears and disappears.
+    + Tap the load to make it appear. The try tapping some where outside the table view 
+      (Palette, Grid, Button), the table view should disappear.
+
+g. tableView(..) // to handle tableViewCell tapped -> load the game.
+    + There is no game.
+    + An empty game.
+    + A full game (the grid is full of bubbles).
+    + Some random games.
+    + Re-save a game and load it.
+    + Modify a game but not re-save it, try loading it again.
+    + Delete a saved game.
+
+h. tableView(..) // to handle tableViewCell removed -> remove a game.
+    + An empty game.
+    + A full game.
+    + Some random games.
+
+i. resetButtonPressed
+    + An empty game.
+    + A full game.
+    + Some random games.
+
+3. Test LevelSelection.
+a. Test SelectGameButtonClicked()
+b. Test “Easy” Game
+	+ Check if there are 58 bubbles, 0 indestructible, 3 stars, 3 lightning, 4 bombs.
+c. Test “Medium” Game
+	+ Check if there are 69 bubbles, 5 indestructible, 2 stars, 2 lightning, 2 bombs.
+d. Test “Hard” Game
+	+ Check if there are 92 bubbles, 15 indestructible, 2 stars, 2 lightning, 2 bombs.
+
+
+4. Test GamePlay.
+
++ Test tapHandler() and fire()
+	- Tap on the bottom part of the screen (1/5 of the screen), nothing should happen.
+	- Tap on the top part of the screen (4/5 of the screen) for testing tap and fire. Check the 	flying of the bubble.
+	- Check if a new bubble is prepared for the next firing.
+
++ Test reposition(bubble) / snapBubble
+	- Fire bubbles to all the grid cells in the game area to check if the bubbles snap on every cells correctly.
+	- Check the distances to near cells.
+
++ Test checkRemoving()
+	- Test a group of size 2 with the same color, they should not be removed.
+	- Test a group of connected bubbles with size 3, 4, 5 (it can be proved that the size 		cannot >= 6), they should be removed.
+
++ Test checkFalling()
+	- Test 1 bubble that are unattached.
+	- Test a group of unattached bubbles that are connected. All should fall.
+	- Test a group of unattached bubbles that are not connected. All should fall.
+
++ Test moveBubble() 
+	- Test the bubble hit the left edge and right edge of the screen, it should be reflected 	correctly.
+	- Test the bubble’s falling. It should fall in velocity increase with time.
+	- Test the bubble’s firing. It should go in constant velocity.
+
++ Test hittingTheSideWall()
+	— Bubble is reflected
+	- check the direction. x-direction should be negated. y-direction is the same.
+
++ Test cannon()
+	- Get the cannon direction, compare with the touched point.
+
++ Test laser()
+	- Get lasers, compare with touched point direction and bubble’s movement.
+
++ Test activateBomb()
+	- Check if the surround bubbles are removed
+
++ Test activateLightning()
+	- Check if the line is removed. Check falling bubble.
+
++ Test activateStar()
+	- Test all kind of normal bubbles.
+
++ Test sound()
+	- bubble bursting sound
+	— bubble hitting sound
+	- cannon firing sound
+	- background soundtrack.
+
+
+###################################
+# Problem 8: The Bells & Whistles #
+###################################
+
+1/ I implemented some sounds:
+	+ Bubble bursting sound
+	+ Bubble hitting sound
+	+ Cannon firing sound
+	+ Background soundtrack
+
+2/ Bubble bursting animation.
+3/ Cannon firing animation.
+4/ Laser that animates the cannon firing direction.
+5/ Instead of preparing pre-loaded levels, I create them randomly with some conditions (as stated in the game rules). This may give user more games to play. I also make a generating algorithm that make sure that the game has no connected area >= 3, no indestructible bubble at the top edge, etc.
+
+###############################
+# Problem 9: Final Reflection #
+###############################
+
+Im my opinion, the current MVC architecture and the design of my game engine is good enough.
+
+First the architecture is separated so they are easy to develop independently. The Model is very reusable. For example, the GameModel can be used in lots of other similar games because it only stores coordination and type (Simple and independent -> easy to use).
+
+And the game engine is independent too. It simulates a real bubbles world and only need a list of bubble as input. All logics are defined in GameLogic so it is also easy to define them. The physicsEngine won’t change much because it is real + the GameLogic is independent and easy to handle + Input is simple -> very reusable. 
+
+However, I think I can make some change to design to make it better. For example, create a protocol GameEngineModel. And all game that want to use GameEngine have to pass data that follow GameEngineModel protocol. That makes things more clear.

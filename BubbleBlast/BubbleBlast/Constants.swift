@@ -48,6 +48,7 @@ struct Constants {
     static let backgroundImageLink = "background.png"
     static let bubbleBurstLink = "bubble-burst.png"
     
+    static let laserBullet = "laser-end.png"
     static let laserLink = "laser.png"
     static let barrierLink = "barrier.png"
     static let transparentImage = "transparent.png"
