@@ -28,7 +28,7 @@ class MenuViewController: UIViewController {
         
         // setup soundtrack, hide the navigationBar
         navigationController?.navigationBarHidden = true
-        soundtrack = setupAudioPlayerWithFile("soundtrack", type: "wav")
+        soundtrack = setupAudioPlayerWithFile("soundtrack", type: "mp3")
         soundtrack.volume = 0.5;
         soundtrack.numberOfLoops = -1
         soundtrack.play()

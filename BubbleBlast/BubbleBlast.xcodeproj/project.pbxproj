@@ -49,8 +49,8 @@
 		3A61C9FB1AA2A01B003B652D /* bubble-hitting.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A61C9F81AA2A01B003B652D /* bubble-hitting.wav */; };
 		3A61C9FC1AA2A01B003B652D /* bubble-pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A61C9F91AA2A01B003B652D /* bubble-pop.wav */; };
 		3A61C9FD1AA2A01B003B652D /* cannon-firing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A61C9FA1AA2A01B003B652D /* cannon-firing.wav */; };
-		3A61C9FF1AA2B434003B652D /* soundtrack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A61C9FE1AA2B434003B652D /* soundtrack.wav */; };
 		3A61CA011AA2B7A2003B652D /* laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A61CA001AA2B7A2003B652D /* laser.png */; };
+		3A6884631AA35E4500DE11F5 /* soundtrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A6884621AA35E4500DE11F5 /* soundtrack.mp3 */; };
 		3A77FC1D1AA250C300A01192 /* button-designed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A77FC191AA250C300A01192 /* button-designed.png */; };
 		3A77FC1E1AA250C300A01192 /* button-easy.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A77FC1A1AA250C300A01192 /* button-easy.png */; };
 		3A77FC1F1AA250C300A01192 /* button-hard.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A77FC1B1AA250C300A01192 /* button-hard.png */; };
@@ -120,8 +120,8 @@
 		3A61C9F81AA2A01B003B652D /* bubble-hitting.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "bubble-hitting.wav"; path = "../../Sounds/bubble-hitting.wav"; sourceTree = "<group>"; };
 		3A61C9F91AA2A01B003B652D /* bubble-pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "bubble-pop.wav"; path = "../../Sounds/bubble-pop.wav"; sourceTree = "<group>"; };
 		3A61C9FA1AA2A01B003B652D /* cannon-firing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "cannon-firing.wav"; path = "../../Sounds/cannon-firing.wav"; sourceTree = "<group>"; };
-		3A61C9FE1AA2B434003B652D /* soundtrack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = soundtrack.wav; path = ../../Sounds/soundtrack.wav; sourceTree = "<group>"; };
 		3A61CA001AA2B7A2003B652D /* laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = laser.png; path = ../../Images/laser.png; sourceTree = "<group>"; };
+		3A6884621AA35E4500DE11F5 /* soundtrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = soundtrack.mp3; path = ../../Sounds/soundtrack.mp3; sourceTree = "<group>"; };
 		3A77FC191AA250C300A01192 /* button-designed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-designed.png"; path = "../../Images/button-designed.png"; sourceTree = "<group>"; };
 		3A77FC1A1AA250C300A01192 /* button-easy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-easy.png"; path = "../../Images/button-easy.png"; sourceTree = "<group>"; };
 		3A77FC1B1AA250C300A01192 /* button-hard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-hard.png"; path = "../../Images/button-hard.png"; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 		3A61C9F71AA2A00F003B652D /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				3A61C9FE1AA2B434003B652D /* soundtrack.wav */,
+				3A6884621AA35E4500DE11F5 /* soundtrack.mp3 */,
 				3A61C9F81AA2A01B003B652D /* bubble-hitting.wav */,
 				3A61C9F91AA2A01B003B652D /* bubble-pop.wav */,
 				3A61C9FA1AA2A01B003B652D /* cannon-firing.wav */,
@@ -396,11 +396,11 @@
 				3A02DF261A9C6C3800BA2366 /* Main.storyboard in Resources */,
 				3A77FC201AA250C300A01192 /* button-medium.png in Resources */,
 				3A77FC1D1AA250C300A01192 /* button-designed.png in Resources */,
+				3A6884631AA35E4500DE11F5 /* soundtrack.mp3 in Resources */,
 				3A02DF511A9C73FF00BA2366 /* bubble-bomb.png in Resources */,
 				3AB1B5C71AA293CC0006C12A /* barrier.png in Resources */,
 				3A4DBADA1AA05DC000E2B1E5 /* button-select.png in Resources */,
 				3A02DF591A9C73FF00BA2366 /* cannon-base.png in Resources */,
-				3A61C9FF1AA2B434003B652D /* soundtrack.wav in Resources */,
 				3A4DBADD1AA0625300E2B1E5 /* cannon-single.png in Resources */,
 				3A02DF4F1A9C73FF00BA2366 /* background.png in Resources */,
 				3A02DF2B1A9C6C3800BA2366 /* LaunchScreen.xib in Resources */,
