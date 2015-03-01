@@ -11,7 +11,7 @@ import AVFoundation
 
 class MenuViewController: UIViewController {
     
-    private var soundtrack = AVAudioPlayer()
+    var soundtrack = AVAudioPlayer()
     
     private func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
         var path = NSBundle.mainBundle().pathForResource(file, ofType:type)
@@ -28,6 +28,8 @@ class MenuViewController: UIViewController {
         
         // setup soundtrack, hide the navigationBar
         navigationController?.navigationBarHidden = true
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
         soundtrack = setupAudioPlayerWithFile("soundtrack", type: "mp3")
         soundtrack.volume = 0.5;
         soundtrack.numberOfLoops = -1

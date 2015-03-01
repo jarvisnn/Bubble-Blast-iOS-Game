@@ -48,7 +48,6 @@ class GamePlayViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        setupSounds()
         setupBackground()
         setupCannon()
         setupBase()
@@ -64,12 +63,6 @@ class GamePlayViewController: UIViewController {
     // we need some animation at the beginning so we start the game in viewDidAppear.
     override func viewDidAppear(animated: Bool) {
         gameEngine!.reformat()
-    }
-    
-    // setup sound for sound animations.
-    private func setupSounds() {
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
     private func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
