@@ -12,6 +12,7 @@ import UIKit
     The Game Model. Using plist to store the Game.
     All the game names will be saved in file `listOfGames`
 */
+
 class GameModel {
     private let dataFile = "listOfGames"
     

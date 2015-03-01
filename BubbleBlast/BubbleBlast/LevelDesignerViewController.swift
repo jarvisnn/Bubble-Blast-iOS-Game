@@ -187,11 +187,13 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "start game") {
-            var gameplay = segue.destinationViewController as LevelSelectionViewController;
+            var gameplay = segue.destinationViewController as GamePlayViewController;
             var bubbles = Array<Bubble>()
             for bubble in bubbleInCell {
                 if bubble != nil {
-                    bubbles.append(bubble!)
+                    let newModel = BubbleModel(coordinate: bubble!.getModel().coordinate,
+                        type: bubble!.getModel().type)
+                    bubbles.append(Bubble(model: newModel))
                 }
             }
             gameplay.setData(bubbles)
@@ -277,7 +279,6 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
     // Save the current game. Alert is used
     @IBAction func saveButtonPressed(sender: UIButton) {
         loadArea.hidden = true
-        
         var alert = UIAlertController(title: "Save game", message: "Enter your game's name!", preferredStyle: UIAlertControllerStyle.Alert)
         
         // and Save action
@@ -286,9 +287,9 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
             let gameList = self.gameModel.getGameList() as Array<String>
             let fileName = (alert.textFields?.first as UITextField).text
             
-            if fileName == "" || fileName == nil {
+            if self.check(fileName) == false {
                 // check if the game name is not valid, pop up the alert again
-                alert.message = "The name is empty!"
+                alert.message = "The name shoule be from 1 to 9 in length and only contains alphabet letters and numbers."
                 self.presentViewController(alert, animated: true, completion: nil)
             } else if contains(gameList, fileName) {
                 // check if the game name has existed, pop up the alert again
@@ -339,6 +340,22 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    private func check(name: String?) -> Bool {
+        if (name == nil || name == "" || countElements(name!) > 9) {
+            return false
+        }
+        for ch in name!.unicodeScalars {
+            let value = ch.value
+            if (value > 57 && value < 65) || (value > 90 && value < 97) {
+                return false
+            }
+            if (value < 48 || value > 122) {
+                return false
+            }
+        }
+        return true
+    }
+    
     // LoadButton pressed, just show / hide the loadArea
     @IBAction func loadButtonPressed(sender: UIButton) {
         if loadArea.hidden {
@@ -361,5 +378,9 @@ class LevelDesignerViewController: UIViewController, UITableViewDataSource, UITa
                 bubbleInCell[i] = nil
             }
         }
+    }
+    
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
     }
 }

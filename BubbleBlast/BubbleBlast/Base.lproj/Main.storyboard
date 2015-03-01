@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="McC-sJ-cKK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -12,33 +12,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XcJ-ev-hgx">
-                                <rect key="frame" x="368" y="289" width="88" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" id="6Sf-SU-BsV">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1030"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Design Level">
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mbR-52-swp">
+                                <rect key="frame" x="280" y="254" width="235" height="81"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-start.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="AsN-uA-l1D" kind="modal" id="0XH-2b-fWT"/>
+                                    <segue destination="AsN-uA-l1D" kind="push" id="K9P-au-7Jh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BYb-UD-5mv">
-                                <rect key="frame" x="370" y="393" width="84" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannon-single.png" id="kln-Jh-SfV">
+                                <rect key="frame" x="83" y="737" width="103" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select Level">
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannon-base.png" id="OwH-N8-tQo">
+                                <rect key="frame" x="68" y="933" width="133" height="71"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-blue.png" id="d19-zr-MBO">
+                                <rect key="frame" x="107" y="687" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-indestructible.png" id="lR9-2a-XOy">
+                                <rect key="frame" x="636" y="47" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-bomb.png" id="LHt-Va-I6c">
+                                <rect key="frame" x="636" y="125" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-lightning.png" id="IlP-y5-WhA">
+                                <rect key="frame" x="636" y="208" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-star.png" id="UzW-Ll-Wzu">
+                                <rect key="frame" x="636" y="290" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-orange.png" id="5qm-pb-L8W">
+                                <rect key="frame" x="107" y="537" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-red.png" id="Ylb-wR-Wlm">
+                                <rect key="frame" x="107" y="611" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble-green.png" id="Jpc-tK-iNq">
+                                <rect key="frame" x="107" y="457" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T45-Us-0sK">
+                                <rect key="frame" x="280" y="394" width="235" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-select.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="vuu-4q-TQn" kind="modal" id="9ZJ-z8-3w8"/>
+                                    <segue destination="EdE-e8-POH" kind="push" identifier="levelSelection" id="wnt-h3-e5h"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="J4Z-D3-gDi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="486.40000000000003" y="564.90666666666675"/>
+            <point key="canvasLocation" x="1466" y="564"/>
         </scene>
         <!--Level Designer View Controller-->
         <scene sceneID="VF7-mq-4ou">
@@ -83,7 +128,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dWN-6X-dex">
-                                        <rect key="frame" x="80" y="4" width="40" height="30"/>
+                                        <rect key="frame" x="142" y="4" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Reset">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,13 +138,23 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mcq-YW-59C">
-                                        <rect key="frame" x="26" y="4" width="33" height="30"/>
+                                        <rect key="frame" x="83" y="4" width="33" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Start">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="vuu-4q-TQn" kind="modal" identifier="start game" id="H13-lP-RYP"/>
+                                            <segue destination="vuu-4q-TQn" kind="push" identifier="start game" id="H13-lP-RYP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K8l-YU-OS5">
+                                        <rect key="frame" x="21" y="4" width="35" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="AsN-uA-l1D" eventType="touchUpInside" id="YOK-dq-yMD"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -113,6 +168,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Lex-Ee-lbD"/>
                     <connections>
                         <outlet property="buttonArea" destination="HjB-Dx-m88" id="AWZ-8r-yQW"/>
                         <outlet property="gameArea" destination="nxI-LL-m8N" id="3XU-k4-zBq"/>
@@ -122,12 +178,92 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OUN-Hy-X2V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1320" y="564"/>
+            <point key="canvasLocation" x="2300" y="564"/>
         </scene>
         <!--Level Selection View Controller-->
+        <scene sceneID="snI-8H-ez7">
+            <objects>
+                <viewController id="EdE-e8-POH" customClass="LevelSelectionViewController" customModule="BubbleBlast" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VG6-Xx-EqL">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" id="x0x-K0-uGZ">
+                                <rect key="frame" x="0.0" y="-1" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EPv-gD-fc8">
+                                <rect key="frame" x="266" y="229" width="236" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-easy.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="easyGameClicked:" destination="EdE-e8-POH" eventType="touchUpInside" id="DNE-0q-EDP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bYS-CY-RAX">
+                                <rect key="frame" x="266" y="350" width="236" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-medium.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mediumGameClicked:" destination="EdE-e8-POH" eventType="touchUpInside" id="Vxz-tc-Mgt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DRQ-R3-ZAU">
+                                <rect key="frame" x="266" y="481" width="236" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-hard.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="hardGameClicked:" destination="EdE-e8-POH" eventType="touchUpInside" id="cOl-fH-86P"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qbv-w3-fsn">
+                                <rect key="frame" x="266" y="595" width="236" height="62"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-designed.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="designedLevelsClicked:" destination="EdE-e8-POH" eventType="touchUpInside" id="rWM-pR-0Il"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Lff-mE-y2s">
+                                <rect key="frame" x="301" y="652" width="165" height="217"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3gO-tx-Qog">
+                                <rect key="frame" x="707" y="959" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-back.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="EdE-e8-POH" eventType="touchUpInside" id="ZIx-K8-JUn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rGu-8d-HPT"/>
+                    <connections>
+                        <outlet property="selectionArea" destination="Lff-mE-y2s" id="flp-8S-fvJ"/>
+                        <segue destination="vuu-4q-TQn" kind="push" identifier="selectionDone" id="1GF-H4-Z9t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMS-EY-UDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1466" y="1760"/>
+        </scene>
+        <!--Game Play View Controller-->
         <scene sceneID="0OR-Na-rHD">
             <objects>
-                <viewController id="vuu-4q-TQn" customClass="LevelSelectionViewController" customModule="BubbleBlast" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vuu-4q-TQn" customClass="GamePlayViewController" customModule="BubbleBlast" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5ow-A2-qnU">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,6 +273,16 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rrf-bF-xWu">
+                                <rect key="frame" x="707" y="959" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-back.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="vuu-4q-TQn" eventType="touchUpInside" id="dXc-8w-tRD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -147,9 +293,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="inE-ah-rXl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1302" y="1737"/>
+            <point key="canvasLocation" x="2300" y="1760"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="alV-pI-IZ7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="McC-sJ-cKK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="crA-tl-I40">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="mn3-G0-8He"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fbb-Tg-ZV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="486" y="564"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background.png" width="768" height="1024"/>
+        <image name="bubble-blue.png" width="160" height="160"/>
+        <image name="bubble-bomb.png" width="160" height="160"/>
+        <image name="bubble-green.png" width="160" height="160"/>
+        <image name="bubble-indestructible.png" width="160" height="160"/>
+        <image name="bubble-lightning.png" width="160" height="160"/>
+        <image name="bubble-orange.png" width="160" height="160"/>
+        <image name="bubble-red.png" width="160" height="160"/>
+        <image name="bubble-star.png" width="160" height="160"/>
+        <image name="button-back.png" width="460" height="459"/>
+        <image name="button-designed.png" width="202" height="52"/>
+        <image name="button-easy.png" width="202" height="52"/>
+        <image name="button-hard.png" width="202" height="52"/>
+        <image name="button-medium.png" width="202" height="52"/>
+        <image name="button-select.png" width="250" height="67"/>
+        <image name="button-start.png" width="244" height="67"/>
+        <image name="cannon-base.png" width="400" height="200"/>
+        <image name="cannon-single.png" width="403" height="798"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

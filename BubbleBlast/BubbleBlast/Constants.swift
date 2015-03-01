@@ -17,6 +17,7 @@ struct Constants {
     static let numberOfBubbleInRow = CGFloat(12)
     static let bubbleSize = ipadWidth / numberOfBubbleInRow
     static let radius = bubbleSize / 2
+    static let barrier = radius * sqrt(3) * 12 + radius
     
     static let numberOfCollectionCells = 161
     
@@ -45,20 +46,36 @@ struct Constants {
     static let starBubbleLink = "bubble-star.png"
     static let eraserLink = "eraser-1.png"
     static let backgroundImageLink = "background.png"
+    static let bubbleBurstLink = "bubble-burst.png"
+    
+    static let laserLink = "laser.png"
+    static let barrierLink = "barrier.png"
+    static let transparentImage = "transparent.png"
     
     static let cannonBaseLink = "cannon-base.png"
     static let cannonLink = "cannon.png"
     static let cannonBaseWidth = CGFloat(140)
     static let cannonWidth = CGFloat(130)
     static let numberOfCannonAnimations = 12
+    static let connectedBubbleBound = 3
+    static let maxLasers = 7
     
+    static let bubbleHitting = "hitting"
+    static let bubbleBursting = "bursting"
+    static let gameOverMessage = "GameOver"
     static let bubbleCollisionKey = "Collision"
     static let removeBubbleMessage = "removeBubble"
+    static let addBubbleMessage = "addBubble"
     static let updateBubbleMesseage = "updateBubble"
     static let stopUpdateBubbleMessage = "stopUpdating"
+    static let cannonFiring = "firing"
     
     static let paletteBackgroundColor = UIColor(white: 0, alpha: 0.5)
     static let buttonBackgroundColor = UIColor(white:0, alpha: 0.8)
     static let tableViewColor = UIColor(white: 0, alpha: 0.5)
     static let tableCellColor = UIColor(red: 0.3, green: 0.75, blue: 0.2, alpha: 0.8)
+    
+    // Constants for velocity and accelaration
+    static let velocity = CGFloat(10)
+    static let accelaration = CGFloat(0.5)
 }

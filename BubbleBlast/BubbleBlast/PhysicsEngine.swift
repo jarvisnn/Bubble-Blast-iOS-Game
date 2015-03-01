@@ -41,16 +41,25 @@ class PhysicsEngine {
         }  
     }
     
-    // This func is for only testing. It has been used in other class.
-    func getBubbles() -> Array<Int> {
-        var result = Array<Int>()
-        for (key, bubble) in bubbles {
-            result.append(bubble.tag!)
+    func removeFalledBubbles() -> Array<Int> {
+        var tags = Array<Int>()
+        for (key, item) in bubbles {
+            if item.coordinate.y > worldHeight {
+                tags.append(item.tag!)
+            }
         }
-        result.sort{$0 < $1}
-        return result
+        deleteBubble(tags)
+        return tags
     }
     
+    func getBubbles() -> Array<BubbleModel> {
+        var result = Array<BubbleModel> ()
+        for (key, item) in bubbles {
+            result.append(item)
+        }
+        return result
+    }
+
     // move bubbles, update the scene.
     func update() -> Array<Int> {
         var tags = Array<Int>()
@@ -127,10 +136,10 @@ class PhysicsEngine {
         
         // make sure the bubble not get out of the world.
         newY = max(newY, radius)
-        if newX < radius && newY <= barrier + radius {
+        if newX < radius && newY <= worldHeight - bubbleSize {
             newX = radius
         }
-        if newX > worldWidth - radius && newY <= barrier + radius {
+        if newX > worldWidth - radius && newY <= worldHeight - bubbleSize {
             newX = worldWidth - radius
         }
         bubble.coordinate = CGPoint(x: newX, y: newY)

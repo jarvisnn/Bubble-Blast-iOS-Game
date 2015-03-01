@@ -7,13 +7,31 @@
 //
 
 import UIKit
+import AVFoundation
 
 class MenuViewController: UIViewController {
-
+    
+    var soundtrack = AVAudioPlayer()
+    private func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer  {
+        var path = NSBundle.mainBundle().pathForResource(file, ofType:type)
+        var url = NSURL.fileURLWithPath(path!)
+        var error: NSError?
+        var audioPlayer:AVAudioPlayer?
+        audioPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
+        return audioPlayer!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        navigationController?.navigationBarHidden = true
+        soundtrack = setupAudioPlayerWithFile("soundtrack", type: "wav")
+        soundtrack.volume = 0.5;
+        soundtrack.numberOfLoops = -1
+        soundtrack.play()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,4 +39,3 @@ class MenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-

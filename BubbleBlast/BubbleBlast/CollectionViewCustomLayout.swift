@@ -23,7 +23,6 @@ class CollectionViewCustomLayout: UICollectionViewLayout {
         
         let cellSize = rect.size.width / CGFloat(Constants.numberOfBubbleInRow);
         let radius = cellSize / 2;
-        let eps: CGFloat = 0.0001
         var currentX: CGFloat = 0, currentY: CGFloat = 0;
         
         for (var i = 0; i < self.collectionView?.numberOfSections(); i++) {
@@ -37,7 +36,7 @@ class CollectionViewCustomLayout: UICollectionViewLayout {
                 
                 // Calculate the position of the cell.
                 currentX += cellSize
-                if currentX > rect.size.width - radius - eps {
+                if currentX >= rect.size.width - radius{
                     currentY += radius * sqrt(3)
                     currentX = currentX > rect.size.width - radius / 2 ? radius : 0
                 }
