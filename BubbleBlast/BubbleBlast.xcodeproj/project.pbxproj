@@ -41,7 +41,6 @@
 		3A37F3091A9CD6A7002B34CB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F3081A9CD6A7002B34CB /* Constants.swift */; };
 		3A37F30D1A9CD79C002B34CB /* LevelDesignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F30C1A9CD79C002B34CB /* LevelDesignerViewController.swift */; };
 		3A37F30F1A9CD7ED002B34CB /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F30E1A9CD7ED002B34CB /* GamePlayViewController.swift */; };
-		3A37F3231A9CDBCC002B34CB /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37F31B1A9CDBCC002B34CB /* Palette.swift */; };
 		3A4DBADA1AA05DC000E2B1E5 /* button-select.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4DBAD81AA05DC000E2B1E5 /* button-select.png */; };
 		3A4DBADB1AA05DC000E2B1E5 /* button-start.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4DBAD91AA05DC000E2B1E5 /* button-start.png */; };
 		3A4DBADD1AA0625300E2B1E5 /* cannon-single.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4DBADC1AA0625300E2B1E5 /* cannon-single.png */; };
@@ -59,6 +58,7 @@
 		3A99E5E81AA0CD58006178A9 /* LevelSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A99E5E71AA0CD58006178A9 /* LevelSelectionViewController.swift */; };
 		3AAC09911AA27374003479AF /* RandomGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC09901AA27374003479AF /* RandomGame.swift */; };
 		3AB1B5C71AA293CC0006C12A /* barrier.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB1B5C61AA293CC0006C12A /* barrier.png */; };
+		3AD77DA61AB0B202009BB72D /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD77DA51AB0B202009BB72D /* Palette.swift */; };
 		3AD7A3B71AA3422D006898B1 /* laser-end.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD7A3B61AA3422D006898B1 /* laser-end.png */; };
 		3AF598D21A9EED0D007F5944 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF598D11A9EED0D007F5944 /* GameLogic.swift */; };
 /* End PBXBuildFile section */
@@ -112,7 +112,6 @@
 		3A37F3081A9CD6A7002B34CB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A37F30C1A9CD79C002B34CB /* LevelDesignerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerViewController.swift; sourceTree = "<group>"; };
 		3A37F30E1A9CD7ED002B34CB /* GamePlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
-		3A37F31B1A9CDBCC002B34CB /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = "../../../cs3217-problem-set-3/LevelDesigner/LevelDesigner/Palette.swift"; sourceTree = "<group>"; };
 		3A4DBAD81AA05DC000E2B1E5 /* button-select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-select.png"; path = "../../Images/button-select.png"; sourceTree = "<group>"; };
 		3A4DBAD91AA05DC000E2B1E5 /* button-start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-start.png"; path = "../../Images/button-start.png"; sourceTree = "<group>"; };
 		3A4DBADC1AA0625300E2B1E5 /* cannon-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cannon-single.png"; path = "../../Images/cannon-single.png"; sourceTree = "<group>"; };
@@ -130,6 +129,7 @@
 		3A99E5E71AA0CD58006178A9 /* LevelSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectionViewController.swift; sourceTree = "<group>"; };
 		3AAC09901AA27374003479AF /* RandomGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomGame.swift; sourceTree = "<group>"; };
 		3AB1B5C61AA293CC0006C12A /* barrier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = barrier.png; path = ../../Images/barrier.png; sourceTree = "<group>"; };
+		3AD77DA51AB0B202009BB72D /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		3AD7A3B61AA3422D006898B1 /* laser-end.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "laser-end.png"; path = "../../Images/laser-end.png"; sourceTree = "<group>"; };
 		3AF598D11A9EED0D007F5944 /* GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,12 +260,12 @@
 		3A37F3121A9CDB66002B34CB /* Level Designer */ = {
 			isa = PBXGroup;
 			children = (
+				3AD77DA51AB0B202009BB72D /* Palette.swift */,
 				3A37F30C1A9CD79C002B34CB /* LevelDesignerViewController.swift */,
 				3A2C9DE61A9D05B000260609 /* GameModel.swift */,
 				3A2C9DE41A9D05B000260609 /* CircleView.swift */,
 				3A2C9DE51A9D05B000260609 /* CollectionViewCustomLayout.swift */,
 				3A2C9DE71A9D05B000260609 /* GridCollectionViewCell.swift */,
-				3A37F31B1A9CDBCC002B34CB /* Palette.swift */,
 			);
 			name = "Level Designer";
 			sourceTree = "<group>";
@@ -449,12 +449,12 @@
 				3A37F30D1A9CD79C002B34CB /* LevelDesignerViewController.swift in Sources */,
 				3A2C9DE31A9D05A000260609 /* BubbleView.swift in Sources */,
 				3A2C9DF01A9D7DD900260609 /* PhysicsEngine.swift in Sources */,
-				3A37F3231A9CDBCC002B34CB /* Palette.swift in Sources */,
 				3A2C9DEA1A9D05B000260609 /* GameModel.swift in Sources */,
 				3A02DF211A9C6C3800BA2366 /* AppDelegate.swift in Sources */,
 				3A2C9DE81A9D05B000260609 /* CircleView.swift in Sources */,
 				3AF598D21A9EED0D007F5944 /* GameLogic.swift in Sources */,
 				3A2C9DEB1A9D05B000260609 /* GridCollectionViewCell.swift in Sources */,
+				3AD77DA61AB0B202009BB72D /* Palette.swift in Sources */,
 				3A2C9DEF1A9D7DD900260609 /* GameEngine.swift in Sources */,
 				3A2C9DF11A9D7DD900260609 /* Queue.swift in Sources */,
 				3A2C9DE11A9D05A000260609 /* Bubble.swift in Sources */,
