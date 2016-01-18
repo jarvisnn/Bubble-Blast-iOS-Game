@@ -1,6 +1,6 @@
-# BubbleBlast
+# Bubble Blast
 
-### Another game for iPad, developed using Swift. No special settings for this project, just put it in XCode, run and have fun :p
+### Another game for iPad, developed using Swift. No need to talk more about this game, as it is very popular and famous already. No special settings for this project, just put it in XCode, run and have fun :p
 
 Note: The project was developed using Swift 1 + Xcode 6. (not remember). Sadly it is not runnable with the newest Swift version.
 
